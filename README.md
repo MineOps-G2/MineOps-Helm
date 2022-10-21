@@ -1,42 +1,30 @@
-# Minecraft
+# MineOps Minecraft server
 
-[Minecraft](https://minecraft.net/)
+MineOps 프로젝트의 Helm파일을 모아놓은 repository입니다.
 
-## Introduction
+현재 minecraft -> kafka -> fluent-bit 순으로 실행해야 합니다.
 
-해당 Helm chart는 마인크래프트 서버를 실행하는 chart입니다.
-- 마인크래프트 서버를 실행
-- 서버 운영진의 관리를 위한 RCON-web 서버 실행
-- 서버상태 확인을 위한 서비스 제공
+## minecraft
 
-## Installing the Chart
-
-Chart를 설치하기전 [Minecraft EULA](https://account.mojang.com/documents/minecraft_eula) 라이센스를 확인하세요.
+itzg의 minecraft server helm을 참고하여 생성한 helm입니다.
 
 ```shell
-helm install minecraft [minecraft helm path] -f [minecraft helm path]/values.yaml
+helm install ./minecraft -f /minecraft/values.yaml
 ```
 
-## Uninstalling the Chart
+## kafka
+
+bitnami의 kafka helm을 그대로 사용합니다.
 
 ```shell
-helm delete minecraft
+heml install ./kafka -f ./kafka/values.yaml
 ```
-Chart와 연결된 모든 Kubernetes구성요소를 삭제합니다.
 
-## Configuration
+## fluent-bit
 
-[itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server/) Docker image.
-
-chart를 install할때 매개변수값을 따로 지정할 수 도 있지만 values.yaml 파일을 사용하는게 좋습니다.
+fluent의 fluent-bit helm에서 조금 변경한 Chart입니다.
+마인크래프트 pvc에서 log를 가지고 오기 위해 마인크래프트 helm과 같은 namespace에서 실행해야 합니다.
 
 ```shell
-helm install minecraft -f [minecraft helm path]/values.yaml [minecraft helm path]
+heml install ./fluent-bit -f ./fluent-bit/values.yaml
 ```
-
-## Persistence
-
-[itzg/minecraft-server](https://hub.docker.com/r/itzg/minecraft-server/) 이미지는 저장된 게임과 모드는 `/data`에 저장합니다.
-persistence.dataDir.enabled이 true로 설정되면 PVC가 생성됩니다.
-emptyDir Volume은 Pod가 노드에 할당될 때 처음 성생성되며 Pod가 실행되는 동안 존재합니다.
-만일 Pod가 제거된다면 영원히 삭제됩니다.
