@@ -209,7 +209,9 @@ podDisruptionBudget:
   annotations: {}
   maxUnavailable: "30%"
 
-nodeSelector: {}
+nodeSelector: {
+  eks.amazonaws.com/nodegroup:mine-server
+}
 
 tolerations: []
 
@@ -307,18 +309,6 @@ config:
 
   ## https://docs.fluentbit.io/manual/pipeline/outputs
   outputs: |
-    [OUTPUT]
-        Name es
-        Match *
-        Host elasticsearch-master-0
-        Port  9200
-
-    [OUTPUT]
-        Name es
-        Match *
-        Host elasticsearch-master-0
-        Port  9200
-
     [OUTPUT]
         Name kafka
         Match *

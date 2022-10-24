@@ -15,7 +15,9 @@ resources:
 
 strategyType: Recreate
 
-nodeSelector: {}
+nodeSelector: {
+  eks.amazonaws.com/nodegroup:mine-server
+}
 
 tolerations: []
 
@@ -114,7 +116,7 @@ minecraftServer:
   spigetResources: []
 
   rcon:
-    enabled: false
+    enabled: true
     port: 25575
     password: "rcon-passwd123!@#"
     existingSecret:
@@ -124,12 +126,18 @@ minecraftServer:
     clusterIP:
     loadBalancerIP:
     web:
-      enabled: false
+      enabled: true
       image: itzg/rcon
       username: "admin"
       password: "password"
       port: 4326
       websocket: 4327
+  monitor:
+    enabled: true
+    image: itzg/mc-monitor
+    port: 8080
+    debug: "true"
+
   extraPorts:
     []
 
