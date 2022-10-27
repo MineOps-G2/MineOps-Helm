@@ -209,13 +209,10 @@ podDisruptionBudget:
   annotations: {}
   maxUnavailable: "30%"
 
-nodeSelector: {
-  eks.amazonaws.com/nodegroup:mine-server
-}
+nodeSelector:
+  eks.amazonaws.com/nodegroup: mine-server
 
 tolerations: []
-
-affinity: {}
 
 labels: {}
 
@@ -312,7 +309,7 @@ config:
     [OUTPUT]
         Name kafka
         Match *
-        Brokers kafka-0.kafka-headless.kafka.svc.cluster.local:9092
+        Brokers kafka.mine-release.svc.cluster.local:9092
         Topics minelogs
 
   ## https://docs.fluentbit.io/manual/administration/configuring-fluent-bit/classic-mode/upstream-servers

@@ -15,9 +15,8 @@ resources:
 
 strategyType: Recreate
 
-nodeSelector: {
-  eks.amazonaws.com/nodegroup:mine-server
-}
+nodeSelector:
+  eks.amazonaws.com/nodegroup: mine-server
 
 tolerations: []
 
@@ -224,5 +223,5 @@ mcbackup:
   persistence:
     annotations: {}
     backupDir:
-      enabled: false
-      Size: 1Gi
+      enabled: true
+      Size: 3Gi
