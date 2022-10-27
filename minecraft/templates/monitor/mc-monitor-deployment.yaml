@@ -20,7 +20,7 @@ spec:
             - name: DEBUG
               value: "true"
             - name: EXPORT_SERVERS
-              value: mine-release-minecraft
+              value: "{{ template "minecraft.fullname" . }}"
           args:
             - export-for-prometheus
       restartPolicy: Always
