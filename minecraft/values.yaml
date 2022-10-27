@@ -15,8 +15,7 @@ resources:
 
 strategyType: Recreate
 
-nodeSelector:
-  eks.amazonaws.com/nodegroup: mine-server
+nodeSelector: {}
 
 tolerations: []
 
